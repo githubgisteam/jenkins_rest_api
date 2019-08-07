@@ -23,6 +23,7 @@ var slack = require('slack-notify')(MY_SLACK_WEBHOOK_URL);
 //var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@localhost:8080', crumbIssuer: true });
 
 app.post('/test', (req, response) => {
+  console.log("Display name ", req.body.queryResult.intent.displayName);
   console.log("hiiiiiii");
   alert("hiiii")
 
