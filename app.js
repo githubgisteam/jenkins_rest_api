@@ -24,8 +24,16 @@ var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@localhost:8
 
 app.post('/test', (req, response) => {
   console.log("Display name ", req.body.queryResult.intent.displayName);
-  console.log("hiiiiiii");
-  alert("hiiii")
+  switch (req.body.queryResult.intent.displayName) {
+    case "enablejob":
+        var jobname = (req.body.queryResult.parameters.jobname).toString();
+        jenkins.job.enable(jobname, function(err) {
+          if (err) throw err;
+          response.send(JSON.stringify({ "fulfillmentText": "Job Enabled "}));
+        });
 
+    break;
+  }
+  
 })
 
