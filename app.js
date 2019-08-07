@@ -27,9 +27,13 @@ app.post('/test', (req, response) => {
   switch (req.body.queryResult.intent.displayName) {
     case "enablejob":
         var jobname = (req.body.queryResult.parameters.jobname).toString();
-        jenkins.job.enable(jobname, function(err) {
-          if (err) throw err;
-          response.send(JSON.stringify({ "fulfillmentText": "Job Enabled "}));
+        jenkins.job.enable(jobname, function(err,result) {
+          if (err) {
+            console.log("error", err)
+          }else{
+            response.send(JSON.stringify({ "fulfillmentText": "Job Enabled "}));
+          }
+         
         });
 
     break;
