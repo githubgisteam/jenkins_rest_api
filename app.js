@@ -76,6 +76,15 @@ app.post('/test', (req, response) => {
         };
       });
       break;
+      case "createjob":
+        jenkins.job.copy('Test', 'example', function(err) {
+          if (err) {
+         console.log("Error",err )
+          }else{
+            console.log("hiii") 
+          }
+        });
+        break;
   }
 
 })
