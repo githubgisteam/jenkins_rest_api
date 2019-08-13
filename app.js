@@ -21,7 +21,7 @@ var MY_SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/TJSQ4J28Z/BM0NGQHMM
 var slack = require('slack-notify')(MY_SLACK_WEBHOOK_URL);
 
 //var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@10.77.17.170:8080', crumbIssuer: true });
-var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@192.168.43.171:8080', crumbIssuer: true });
+var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@192.168.43.171:8080', crumbIssuer: false });
 
 
 app.post('/test', (req, response) => {
