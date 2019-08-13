@@ -20,7 +20,7 @@ app.listen(server_port, server_host, function () {
 var MY_SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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";
 var slack = require('slack-notify')(MY_SLACK_WEBHOOK_URL);
 
-var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@localhost:8080', crumbIssuer: true });
+var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@10.77.17.170:8080', crumbIssuer: true });
 
 app.post('/test', (req, response) => {
   console.log("Display name ", req.body.queryResult.intent.displayName);
@@ -51,6 +51,7 @@ app.post('/test', (req, response) => {
         if (err) {
           console.log("Error", err)
         } else{
+          console.log("hiii", jobenabled)
         response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
       }
       });
