@@ -30,14 +30,18 @@ app.post('/test', (req, response) => {
     case "enablejob":
       console.log("here");
       var jobname = (req.body.queryResult.parameters.jobname).toString();
-      jenkins.job.enable(jobname, function (err, result) {
+      for(i=0;i<30;i++)
+      {
+        console.log(i);
+      }
+      /*jenkins.job.enable(jobname, function (err, result) {
         if (err) {
           console.log("error", err)
         } else {
           response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
         }
 
-      });
+      });*/
       break;
     case "buildstatus":
       var buildNumber = (req.body.queryResult.parameters.buildnumber).toString();
