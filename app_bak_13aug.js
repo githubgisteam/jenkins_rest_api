@@ -54,8 +54,45 @@ app.post('/test', (req, response) => {
 
       });
       break;
-    
-      
+    case "buildstatus":
+      var buildNumber = (req.body.queryResult.parameters.buildnumber).toString();
+      var jobname = (req.body.queryResult.parameters.jobname).toString();;
+      jenkins.build.get(jobname, buildNumber, function (err, data) {
+        if (err) throw err;
+        console.log('build', data);
+        response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
+      });
+      break;
+    case "disablejob":
+      var jobname = (req.body.queryResult.parameters.jobname).toString();
+      jenkins.job.disable(jobname, function (err, result) {
+        if (err) {
+          console.log("Error", err)
+        } else {
+          response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
+        }
+        
+      });
+      break;
+    case "jobexist":
+      var jobname = (req.body.queryResult.parameters.jobname).toString();
+      jenkins.job.disable(jobname, function (err, result) {
+        if (err) {
+         console.log("Error", err);
+        } else { 
+          response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
+        };
+      });
+      break;
+      case "createjob":
+        jenkins.job.copy('Test', 'example', function(err) {
+          if (err) {
+         console.log("Error",err )
+          }else{
+            console.log("hiii") 
+          }
+        });
+        break;
   }
 
 })
