@@ -34,6 +34,7 @@ app.post('/test', (req, response) => {
       {
         console.log(i);
       }*/
+      console.log("jobname", jobname )
       jenkins.job.enable(jobname, function (err, result) {
         if (err) {
           console.log("error", err)
