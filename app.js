@@ -33,17 +33,30 @@ jenkins.info(function(err, data) {
 
 });
 
+app.post('/test', (req, response) => {
+  console.log("Display name ", req.body.queryResult.intent.displayName);
+  console.log("here");
+  var jobname = (req.body.queryResult.parameters.jobname).toString();
+  console.log("jobname", jobname)
 
+  jenkins.job.enable(jobname, function (err, result) {
+    console.log("jobname 1", jobname)
+    response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
+    if (err) {
+      console.log("error", err)
+    } else {
+      response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
+    }
+  })
+
+/*
 app.post('/test', (req, response) => {
   console.log("Display name ", req.body.queryResult.intent.displayName);
   switch (req.body.queryResult.intent.displayName) {
     case "enablejob":
       console.log("here");
       var jobname = (req.body.queryResult.parameters.jobname).toString();
-     /* for(i=0;i<1000;i++)
-      {
-        console.log(i);
-      }*/
+
       console.log("jobname", jobname )
       var a; 
       jenkins.job.enable(jobname, function (err, result) {
@@ -58,7 +71,6 @@ app.post('/test', (req, response) => {
       break;
     
       
-  }
+  }*/
 
 })
-
