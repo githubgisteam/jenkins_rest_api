@@ -45,14 +45,16 @@ app.post('/test', (req, response) => {
         console.log(i);
       }*/
       console.log("jobname", jobname )
+      var a; 
       jenkins.job.enable(jobname, function (err, result) {
         if (err) {
-          console.log("error", err)
+       a =     console.log("error", err)
         } else {
-          response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
+       a =    response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
         }
-
+     return a;
       });
+
       break;
     
       
