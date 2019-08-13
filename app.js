@@ -30,7 +30,7 @@ app.post('/test', (req, response) => {
     case "enablejob":
       console.log("here");
       var jobname = (req.body.queryResult.parameters.jobname).toString();
-      for(i=0;i<30;i++)
+      for(i=0;i<1000;i++)
       {
         console.log(i);
       }
