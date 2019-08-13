@@ -30,18 +30,18 @@ app.post('/test', (req, response) => {
     case "enablejob":
       console.log("here");
       var jobname = (req.body.queryResult.parameters.jobname).toString();
-      for(i=0;i<1000;i++)
+     /* for(i=0;i<1000;i++)
       {
         console.log(i);
-      }
-      /*jenkins.job.enable(jobname, function (err, result) {
+      }*/
+      jenkins.job.enable(jobname, function (err, result) {
         if (err) {
           console.log("error", err)
         } else {
           response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
         }
 
-      });*/
+      });
       break;
     case "buildstatus":
       var buildNumber = (req.body.queryResult.parameters.buildnumber).toString();
@@ -50,17 +50,6 @@ app.post('/test', (req, response) => {
         if (err) throw err;
         console.log('build', data);
         response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
-      });
-      break;
-    case "enablejob":
-      var jobname = (req.body.queryResult.parameters.jobname).toString();
-      jenkins.job.enable(jobname, function (err,result) {
-        if (err) {
-          console.log("Error", err)
-        } else{
-          console.log("hiii", jobenabled)
-        response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
-      }
       });
       break;
     case "disablejob":
