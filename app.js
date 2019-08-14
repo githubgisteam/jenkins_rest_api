@@ -19,14 +19,15 @@ app.listen(server_port, server_host, function () {
 var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@10.75.65.182:8080', crumbIssuer: true });
 //var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@192.168.43.171:8080', crumbIssuer: false });
 
-jenkins.info(function(err, data) {
-  if(err){
-    console.log("error is here",err )
-  } else {
-   
-    console.log('info', data);
-  }
 
-});
+
+app.get('/test', checkUserAuth, findApp, renderView, sendJSON);
+
+function checkUserAuth(req, res, next) {
+  if (req.session.user) return next();
+  return next(new NotAuthorizedError());
+}
+console.log("Display name ", req.body.queryResult.intent.displayName);
+
 
 
