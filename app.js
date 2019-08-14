@@ -16,11 +16,7 @@ app.listen(server_port, server_host, function () {
   console.log('Listening on port %d', server_port);
 });
 
-/**pass incoming webhook to send messege to slack from azure */
-var MY_SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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";
-var slack = require('slack-notify')(MY_SLACK_WEBHOOK_URL);
-
-var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@10.77.17.170:8080', crumbIssuer: true });
+var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@10.75.65.182:8080', crumbIssuer: true });
 //var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@192.168.43.171:8080', crumbIssuer: false });
 
 jenkins.info(function(err, data) {
@@ -33,44 +29,4 @@ jenkins.info(function(err, data) {
 
 });
 
-app.post('/test', (req, response) => {
-  console.log("Display name ", req.body.queryResult.intent.displayName);
-  console.log("here");
-  var jobname = (req.body.queryResult.parameters.jobname).toString();
-  console.log("jobname", jobname)
 
-  jenkins.job.enable(jobname, function (err, result) {
-    console.log("jobname 1", jobname)
-    response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
-    if (err) {
-      console.log("error", err)
-    } else {
-      response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
-    }
-  })
-
-/*
-app.post('/test', (req, response) => {
-  console.log("Display name ", req.body.queryResult.intent.displayName);
-  switch (req.body.queryResult.intent.displayName) {
-    case "enablejob":
-      console.log("here");
-      var jobname = (req.body.queryResult.parameters.jobname).toString();
-
-      console.log("jobname", jobname )
-      var a; 
-      jenkins.job.enable(jobname, function (err, result) {
-        if (err) {
-       a =     console.log("error", err)
-        } else {
-       a =    response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
-        }
-     return a;
-      });
-
-      break;
-    
-      
-  }*/
-
-})
