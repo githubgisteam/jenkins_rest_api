@@ -8,6 +8,7 @@ var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
+var jenkinsapi = require('jenkins-api');
 
 /**set port using env variable for server */
 var server_port = process.env.YOUR_PORT || process.env.PORT || 3000;
@@ -17,8 +18,9 @@ app.listen(server_port, server_host, function () {
 });
 app.timeout = 500000;
 
-var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@10.75.65.182:8080', crumbIssuer: true });
+//var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@10.75.65.182:8080', crumbIssuer: true });
 //var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@192.168.43.171:8080', crumbIssuer: false });
+var jenkins = jenkinsapi.init("http://amrita:amrita123@10.75.65.182:8080");
 
 
 app.post('/test', (req, response) => {
@@ -27,16 +29,10 @@ app.post('/test', (req, response) => {
   var jobname = (req.body.queryResult.parameters.jobname).toString();
   console.log("jobname", jobname)
 
-  jenkins.job.enable(jobname, function (err, result) {
-    console.log("jobname 1", jobname)
-    response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
-    if (err) {
-      console.log("error", err)
-    } else {
-      response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
-    }
-  })
-
+  jenkins.enable_job(jobname,  function(err, data) {
+    if (err){ return console.log(err); }
+    console.log(data)
+  });
 
 })
 

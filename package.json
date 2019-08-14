@@ -15,6 +15,7 @@
     "express": "^4.16.4",
     "graceful-fs": "^4.2.0",
     "jenkins": "^0.25.0",
+    "jenkins-api": "^0.3.1",
     "mongoose": "^5.4.3",
     "node-datetime": "^2.1.2",
     "npm": "^6.5.0",
