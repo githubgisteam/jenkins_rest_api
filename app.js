@@ -21,14 +21,26 @@ var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@10.75.65.18
 //var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@192.168.43.171:8080', crumbIssuer: false });
 
 
+app.post('/test', (req, response) => {
+  console.log("Display name ", req.body.queryResult.intent.displayName);
+  console.log("here");
+  var jobname = (req.body.queryResult.parameters.jobname).toString();
+  console.log("jobname", jobname)
 
-app.get('/test', checkUserAuth, findApp, renderView, sendJSON);
+  jenkins.job.enable(jobname, function (err, result) {
+    console.log("jobname 1", jobname)
+    response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
+    if (err) {
+      console.log("error", err)
+    } else {
+      response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
+    }
+  })
 
-function checkUserAuth(req, res, next) {
-  if (req.session.user) return next();
-  return next(new NotAuthorizedError());
-}
-console.log("Display name ", req.body.queryResult.intent.displayName);
+
+})
+
+
 
 
 
