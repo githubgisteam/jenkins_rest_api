@@ -26,7 +26,7 @@ app.post('/test', (req, response) => {
   console.log("here");
   var jobname = (req.body.queryResult.parameters.jobname).toString();
   console.log("jobname", jobname)
-  var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@10.75.65.182:8080', crumbIssuer: true });
+  var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@10.75.65.182:8080'});
   jenkins.job.enable(jobname, function (err, result) {
     console.log("jobname 1", jobname)
     response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
