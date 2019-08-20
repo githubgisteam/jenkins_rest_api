@@ -27,8 +27,10 @@ app.get('/test', (req, response) => {
 console.log("hiiii")
   var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@10.77.17.128:8080'});
  console.log("connection is here",jenkins )
- jenkins.job.enable('test12', function(err) {
+ jenkins.queue.list(function(err, data) {
   if (err) throw err;
+ 
+  console.log('queues', data);
 });
 
 
