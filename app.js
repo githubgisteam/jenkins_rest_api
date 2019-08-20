@@ -9,6 +9,8 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 
+var DelayedResponse = require('http-delayed-response')
+
 /**set port using env variable for server */
 var server_port = process.env.YOUR_PORT || process.env.PORT || 3000;
 var server_host = process.env.YOUR_HOST || '0.0.0.0';
@@ -49,16 +51,7 @@ app.use(function (req, res) {
   var delayed = new DelayedResponse(req, res);
  
   delayed.on('done', function (results) {
-    var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@10.77.17.128:8080'});
-    jenkins.job.enable(jobname, function (err, result) {
-      console.log("jobname 1", jobname)
-      response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
-      if (err) {
-        console.log("error", err)
-      } else {
-        response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
-      }
-    })
+    amritafunction(jobname);
     res.json(results);
   }).on('cancel', function () {
     // slowFunction failed to invoke its callback within 5 seconds
@@ -67,10 +60,21 @@ app.use(function (req, res) {
     res.end();
   });
  
-  slowFunction(delayed.wait(5000));
+  amritafunction(delayed.wait(5000));
 });
 
 
 
-
+function amritafunction(jobname){
+  var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@10.77.17.128:8080'});
+  jenkins.job.enable(jobname, function (err, result) {
+    console.log("jobname 1", jobname)
+    //response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
+    if (err) {
+      console.log("error", err)
+    } else {
+      return result;//response.send(JSON.stringify({ "fulfillmentText": "Job Enabled " }));
+    }
+  })
+}
 
