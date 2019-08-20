@@ -21,9 +21,11 @@ app.timeout = 500000;
 //var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@192.168.43.171:8080', crumbIssuer: false });
 
 
-app.post('/test', (req, response) => {
+app.use('/test', (req, response) => {
+
   console.log("Display name ", req.body.queryResult.intent.displayName);
   console.log("here");
+  
   var jobname = (req.body.queryResult.parameters.jobname).toString();
   console.log("jobname", jobname)
   var jenkins = require('jenkins')({ baseUrl: 'http://amrita:amrita123@10.77.17.128:8080'});
